@@ -1,0 +1,42 @@
+#!/bin/bash
+# variable will be populated by terraform template
+db_username=${db_username}
+db_user_password=${db_user_password}
+db_name=${db_name}
+db_RDS_pre=${db_RDS}
+
+# removing port number from endpoint
+db_RDS=$(echo $db_RDS_pre|cut -f1 -d":") 
+
+
+yum update -y
+yum install git -y
+yum install go -y
+sudo go get github.com/GeertJohan/go.rice
+sudo go get github.com/GeertJohan/go.rice/rice
+sudo ln -s /root/go/bin/rice /usr/bin/rice
+
+# Downloading repo
+cd /home/ec2-user
+git clone https://github.com/servian/TechChallengeApp.git
+cd TechChallengeApp
+
+# Configuring conf.toml
+rm conf.toml
+cat <<EOF >>conf.toml
+"DbUser" = "$db_username"
+"DbPassword" = "$db_user_password"
+"DbName" = "$db_name"
+"DbPort" = "5432"
+"DbHost" = "$db_RDS"
+"ListenHost" = "0.0.0.0"
+"ListenPort" = "3000"
+
+EOF
+
+
+sudo bash build.sh
+cd ./dist
+./TechChallengeApp updatedb
+./TechChallengeApp serve
+
