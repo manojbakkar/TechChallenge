@@ -1,0 +1,13 @@
+variable "vpc_id" {}
+variable "database_name" {}
+variable "database_password" {}
+variable "database_user" {}
+variable "region" {}
+variable "ami" {}
+variable "instance_type" {}
+variable "instance_class" {}
+variable "PUBLIC_KEY_PATH" {}
+variable "private-subnet-1" {}
+variable "private-subnet-2" {}
+variable "public-subnet" {}
+variable "Appalb_targetgrp" {}
