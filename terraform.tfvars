@@ -27,3 +27,7 @@ public-subnet-2 = "" // Pre-requisite
 Appalb_targetgrp = "App-TargetGroup"
 
 database_password = "" // Pre-requisite
+
+alb_ssl_policy = "" // Pre-requisite
+
+alb_certificate_arn = "" // Pre-requisite
