@@ -150,7 +150,7 @@ resource "aws_lb" "App-ALB" {
 # ALB listener
 resource "aws_alb_listener" "App-listener" {
   load_balancer_arn = "${aws_lb.App-ALB.arn}"
-  port              = "80"
+  port              = "443"
   protocol          = "HTTP"
 
   ssl_policy        = var.alb_ssl_policy
@@ -175,8 +175,6 @@ resource "aws_alb_target_group" "App-tgtgrp" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
     timeout             = 3
-
-    //path                = var.path
     interval = 30
     matcher  = "200"
   }
